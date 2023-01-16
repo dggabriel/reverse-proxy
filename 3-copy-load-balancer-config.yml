@@ -1,0 +1,13 @@
+---
+- hosts: load_balancer
+  become: true
+  become_user: root
+
+  tasks:
+   - name: Copy load-balancer.conf
+     template:
+       src: load-balancer.conf
+       dest: /etc/nginx/sites-enabled/load-balancer.conf
+       mode: 0644
+       owner: root
+       group: root

@@ -1,5 +1,5 @@
 ---
-- hosts: all_servers
+- hosts: web_servers
   become: true
   become_user: root
 
@@ -9,5 +9,13 @@
        src: sample.html
        dest: /var/www/html/sample.html
        mode: 0644
+       owner: root
+       group: root
+
+   - name: Copy default
+     template:
+       src: default
+       dest: /etc/nginx/sites-enabled/default
+       mode: 0777
        owner: root
        group: root
