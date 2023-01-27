@@ -1,0 +1,25 @@
+---
+- hosts: load_balancer
+  become: true
+  tasks:
+
+  - name: Install nginx
+    apt:
+      name:
+       - nginx
+      state: latest
+      update_cache: yes
+
+  - name: Install keepalived
+    apt:
+      name:
+       - keepalived
+      state: latest
+      update_cache: yes
+
+  - name: Install libipset13
+    apt:
+      name:
+       - libipset13
+      state: latest
+      update_cache: yes

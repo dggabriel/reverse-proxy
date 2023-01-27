@@ -1,0 +1,13 @@
+---
+- hosts: master_load_balancer
+  become: true
+  become_user: root
+
+  tasks:
+   - name: Copy keepalived.conf
+     template:
+       src: lb1/keepalived.conf
+       dest: /etc/keepalived/keepalived.conf
+       mode: 0644
+       owner: root
+       group: root
