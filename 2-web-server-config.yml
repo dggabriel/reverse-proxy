@@ -1,0 +1,67 @@
+---
+- hosts: web_servers
+  become: true
+  become_user: root
+  tasks:
+
+  - name: Install required packages
+    apt:
+      name:
+       - nginx
+      state: latest
+      update_cache: yes
+
+  - name: Install PHP7.4 and NFS helper
+    apt:
+      update_cache: yes
+      name:
+        - php7.4-fpm
+        - php7.4-redis
+        - php7.4-cli
+        - php7.4-mysql
+        - php7.4-curl
+        - php7.4-json
+        - php7.4-pgsql
+        - php7.4-iconv
+        - php7.4-mbstring
+        - php7.4-xmlrpc
+        - php7.4-soap
+        - php7.4-ctype
+        - php7.4-zip
+        - php7.4-gd
+        - php7.4-dom
+        - php7.4-xml
+        - php7.4-intl
+        - php7.4-ldap
+        - nfs-common
+        - clamav
+        - clamdscan
+        - clamav-daemon
+        - apparmor-utils
+        - unoconv
+        - ghostscript
+      state: present
+
+   - name: Copy index.php
+     template:
+       src: index.php
+       dest: /var/www/html/index.php
+       mode: 0644
+       owner: root
+       group: root
+
+   - name: Copy default - sites enabled
+     template:
+       src: default
+       dest: /etc/nginx/sites-enabled/default
+       mode: 0644
+       owner: root
+       group: root
+
+   - name: Copy default - sites available
+     template:
+       src: default
+       dest: /etc/nginx/sites-available/default
+       mode: 0644
+       owner: root
+       group: root
