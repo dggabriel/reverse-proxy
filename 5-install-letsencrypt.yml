@@ -18,14 +18,6 @@
       state: latest
       update_cache: yes
 
-  - name: Install letsencrypt certbot
-    apt:
-      name:
-       - certbot
-       - python3-certbot-nginx
-      state: latest
-      update_cache: yes
-
   - name: Install libipset13
     apt:
       name:
@@ -34,26 +26,10 @@
       update_cache: yes
 
   - name: Copy load-balancer.conf
-    template:
+     template:
        src: load-balancer.conf
        dest: /etc/nginx/sites-enabled/load-balancer.conf
        mode: 0644
        owner: root
        group: root
 
-  - name: Restart nginx
-    service:
-      name: nginx
-      state: restarted
-
-  - name: Setup obtain ssl/tls certificate
-    shell: |
-     sudo certbot --nginx -d 202.92.129.228 -d 202.92.129.228
-    args:
-     warn: no
-
-  - name: automatically renew lets encrypt certicate
-    blockinfile:
-     dest: /etc/crontab
-     block: |
-      0 12 * * * /usr/bin/certbot renew --quiet
