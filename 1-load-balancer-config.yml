@@ -46,9 +46,9 @@
       name: nginx
       state: restarted
 
-  - name: Setup obtain ssl/tls certificate
+  - name: Setup obtain ssl/tls certificate #should be installed per lb turn off existing lb that already has certificate then turn it on after the certificate was issued to the next lb vm
     shell: |
-     sudo certbot --nginx -d 202.92.129.228 -d 202.92.129.228
+     sudo certbot --nginx --agree-tos --email dggabriel@up.edu.ph --redirect --non-interactive -d lbm.dilc.info -d lbm.dilc.info
     args:
      warn: no
 
